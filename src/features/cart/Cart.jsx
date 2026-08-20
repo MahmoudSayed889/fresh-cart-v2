@@ -8,12 +8,8 @@ export default function Cart() {
   useEffect(() => {
     getLoggedUserCart()
 
-    if (cartItems) {
-      console.log(cartItems);
-    }
-
     return () => { }
-  }, [])
+  }, [getLoggedUserCart])
 
   return <>
     <div className="container py-5">

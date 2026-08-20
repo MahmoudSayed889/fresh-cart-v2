@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { AuthContext } from '../../../App'
 import { useNavigate } from 'react-router-dom'
@@ -15,6 +15,25 @@ export default function CartContextProvider({ children }) {
     const token = localStorage.getItem('user')
     const navigate = useNavigate()
 
+    const getLoggedUserCart = useCallback(async () => {
+        try {
+            const { data } = await axios.get('https://ecommerce.routemisr.com/api/v2/cart',
+                {
+                    headers: {
+                        token: token
+                    }
+                }
+            )
+
+            setCartItems(data.data)
+            setNumCartItems(data.numOfCartItems)
+
+        } catch (err) {
+            console.log(err.response)
+        }
+    }, [token])
+
+
     useEffect(() => {
         if (currentUser == null) {
             return
@@ -22,23 +41,8 @@ export default function CartContextProvider({ children }) {
 
         getLoggedUserCart()
         return () => { }
-    }, [currentUser])
-
-
-    const getLoggedUserCart = async () => {
-        try {
-            const { data } = await axios.get('https://ecommerce.routemisr.com/api/v2/cart', {
-                headers: {
-                    token: token
-                }
-            })
-
-            setCartItems(data.data)
-            setNumCartItems(data.numOfCartItems)
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
+    }, [currentUser, getLoggedUserCart])
+    
 
     const addProductToCart = async (productId) => {
         setLoading(true)
