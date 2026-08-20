@@ -1,0 +1,10 @@
+.checkout {
+  top: 85px;
+  z-index: 999999 !important;
+}
+
+@media (max-width: 992px) {
+  .checkout {
+    bottom: 5px;
+  }
+}

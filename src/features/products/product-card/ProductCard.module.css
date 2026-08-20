@@ -1,0 +1,17 @@
+.item {
+    transition: all .3s;
+}
+
+.item:hover {
+    border-color: #198754 !important;
+    transform: scale(1.04);
+}
+
+.btnAdd {
+    transform: translateY(125%);
+    transition: all .3s !important;
+}
+
+.item:hover .btnAdd{
+    transform: translateY(0);
+}

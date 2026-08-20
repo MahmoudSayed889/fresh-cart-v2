@@ -1,0 +1,8 @@
+.item {
+    transition: all .3s;
+}
+
+.item:hover {
+    border-color: #198754 !important;
+    transform: scale(1.04);
+}
